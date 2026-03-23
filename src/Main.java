@@ -1,21 +1,32 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*criando constantes para o programa*/
-        final double CONSUMO_MEDIO = 12.5;
-        final double CAPACIDADE = 50;
-        final double COMBUSTIVEL = 20;
-        final double DISTANCIA = 280;
-
-        System.out.println("A capacidade máxima do veículo é de "+(int) (CONSUMO_MEDIO*CAPACIDADE)+" km com um tanque cheio");
-        System.out.printf("Autonomia atual: %.0f \n", CONSUMO_MEDIO*COMBUSTIVEL);
-        if (CONSUMO_MEDIO*COMBUSTIVEL < DISTANCIA){
-            System.out.println("Você não conseguirá finalizar a viagem");
+        /*ENTRADA DO USUÁRIO*/
+        Scanner scanner = new Scanner(System.in); //criamos uma instância de scanner para pegar valores digitados pelo usuário
+        System.out.print("Insira um número: "); //guarda o valor inserido pelo usuário em uma variável
+        int numero =  scanner.nextInt();
+        if (numero % 2 == 0){
+            System.out.printf("O número %d é par", numero);
         }else{
-            System.out.println("Você conseguirá chegar ao seu destino");
+            System.out.printf("O número %d é ímpar", numero);
+        }
+        List<Double> notas = new ArrayList<>();
+        double media = 0;
+        for (int i = 1; i < 3; i++){
+            System.out.println("\nInsira a sua nota da prova " + i + ":");
+            notas.add(scanner.nextDouble());
+            media +=notas.get(i - 1);
+        }
+        if(media / notas.size() >= 7){
+            System.out.println("Você foi aprovado. Média: "+media);
+        }else if(media / notas.size() >= 5){
+            System.out.println("Você está de recuperação. Média: "+media);
+        }else{
+            System.out.println(("Você foi reprovado. Média: "+media));
         }
     }
 }
