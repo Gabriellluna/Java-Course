@@ -5,19 +5,44 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*ENTRADA DO USUÁRIO*/
-        Scanner scanner = new Scanner(System.in); //criamos uma instância de scanner para pegar valores digitados pelo usuário
-        List<Integer> numeros = new ArrayList<>();
-        for (int i = 1; i < 11; i++){
-            System.out.println("\nInsira um número: ");
-            numeros.add(scanner.nextInt());
+        String[] nomes = {"Gabriel", "Gustavo", "Felipe"};
+        double[] notas = {7.80, 5.50, 6.80};
+
+        //for para apresentar todas as notas
+        System.out.println("FOR");
+        for (int i = 0; i < nomes.length; i++) {
+            System.out.println("Aluno " + nomes[i] + ". Nota: " + notas[i]);
         }
-        int maior = numeros.get(0);
-        for (int i = 0; i < numeros.size(); i++){
-            if (numeros.get(i) > maior){
-                maior = numeros.get(i);
+        System.out.println("\n\nWHILE");
+        //while e do-while para apresentar todas as notas acima da média 6
+        int j = 0;
+        while (j < nomes.length) {
+            if (notas[j] < 6) {
+                j++;
+                continue;
             }
+            System.out.println("Aluno " + nomes[j] + ". Nota: " + notas[j]);
+            j++;
         }
-        System.out.println("O maior número é o " + maior);
+        System.out.println("\n\nDO WHILE");
+        j = 0;
+        do {
+            if (notas[j] < 6) {
+                j++;
+                continue;
+            }
+            System.out.println("Aluno " + nomes[j] + ". Nota: " + notas[j]);
+            j++;
+
+        } while (j < nomes.length);
+
+        System.out.println("\n\nFOR EACH\n\n");
+        for(String nome : nomes){
+            if (nome.equals("Gustavo")){break;}
+            System.out.println(nome);
+        }
+        for(double nota : notas){
+            System.out.println(nota);
+        }
     }
 }
