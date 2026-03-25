@@ -5,44 +5,40 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String[] nomes = {"Gabriel", "Gustavo", "Felipe"};
-        double[] notas = {7.80, 5.50, 6.80};
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Insira dois números para gerar um intervalo e eu calcular a soma dos números pares: ");
+        int n1 = scanner.nextInt();
+        int n2 = scanner.nextInt();
+        int soma = 0;
+        List<Integer> lista = new ArrayList<>();
+        if (n1 % 2 == 0) { //se número 1 for par
+            lista.add(n1);
+            do{
+                n1 += 2;
+                if(n1 > n2){
+                    break;
+                }
+                lista.add(n1);
+                System.out.println("teste");
+            }while(n1 <= n2);
 
-        //for para apresentar todas as notas
-        System.out.println("FOR");
-        for (int i = 0; i < nomes.length; i++) {
-            System.out.println("Aluno " + nomes[i] + ". Nota: " + notas[i]);
-        }
-        System.out.println("\n\nWHILE");
-        //while e do-while para apresentar todas as notas acima da média 6
-        int j = 0;
-        while (j < nomes.length) {
-            if (notas[j] < 6) {
-                j++;
-                continue;
+        }else{ //se número 1 for ímpar
+            n1 += 1;
+            lista.add(n1);
+            while(n1 <= n2){
+                n1 += 1;
+                if(n1%2 == 0){
+                    lista.add(n1);
+                }
+                if(n1>n2){
+                    break;
+                }
             }
-            System.out.println("Aluno " + nomes[j] + ". Nota: " + notas[j]);
-            j++;
         }
-        System.out.println("\n\nDO WHILE");
-        j = 0;
-        do {
-            if (notas[j] < 6) {
-                j++;
-                continue;
-            }
-            System.out.println("Aluno " + nomes[j] + ". Nota: " + notas[j]);
-            j++;
-
-        } while (j < nomes.length);
-
-        System.out.println("\n\nFOR EACH\n\n");
-        for(String nome : nomes){
-            if (nome.equals("Gustavo")){break;}
-            System.out.println(nome);
+        System.out.println(lista);
+        for(int i = 0; i < lista.size(); i++){
+            soma = soma + lista.get(i);
         }
-        for(double nota : notas){
-            System.out.println(nota);
-        }
+        System.out.println("Soma dos números no intervalor de " + n1 + "e" + n2 + ": " + soma);
     }
 }
