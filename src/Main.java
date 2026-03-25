@@ -11,34 +11,15 @@ public class Main {
         int n2 = scanner.nextInt();
         int soma = 0;
         List<Integer> lista = new ArrayList<>();
-        if (n1 % 2 == 0) { //se número 1 for par
-            lista.add(n1);
-            do{
-                n1 += 2;
-                if(n1 > n2){
-                    break;
-                }
-                lista.add(n1);
-                System.out.println("teste");
-            }while(n1 <= n2);
-
-        }else{ //se número 1 for ímpar
-            n1 += 1;
-            lista.add(n1);
-            while(n1 <= n2){
-                n1 += 1;
-                if(n1%2 == 0){
-                    lista.add(n1);
-                }
-                if(n1>n2){
-                    break;
-                }
+        for(int i = n1; i<=n2; i++){
+            if (i % 2 == 0) {
+                lista.add(i);
             }
         }
-        System.out.println(lista);
         for(int i = 0; i < lista.size(); i++){
             soma = soma + lista.get(i);
         }
-        System.out.println("Soma dos números no intervalor de " + n1 + "e" + n2 + ": " + soma);
+        System.out.println(lista);
+        System.out.println("Soma dos números no intervalor de " + n1 + " e " + n2 + ": " + soma);
     }
 }
