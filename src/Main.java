@@ -1,25 +1,20 @@
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+
+// Online IDE - Code Editor, Compiler, Interpreter
 import java.util.Scanner;
 
-public class Main {
+public class Main
+{
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Insira dois números para gerar um intervalo e eu calcular a soma dos números pares: ");
-        int n1 = scanner.nextInt();
-        int n2 = scanner.nextInt();
-        int soma = 0;
-        List<Integer> lista = new ArrayList<>();
-        for(int i = n1; i<=n2; i++){
-            if (i % 2 == 0) {
-                lista.add(i);
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Digite os números separados por espaço: ");
+        String[] numeros = scan.nextLine().split(" ");
+        int maior = 0;
+        for(String numero : numeros){
+            int numero_int = Integer.parseInt(numero);
+            if (numero_int > maior){
+                maior = numero_int;
             }
         }
-        for(int i = 0; i < lista.size(); i++){
-            soma = soma + lista.get(i);
-        }
-        System.out.println(lista);
-        System.out.println("Soma dos números no intervalor de " + n1 + " e " + n2 + ": " + soma);
+        System.out.printf("O maior número da lista é o %d", maior);
     }
 }
