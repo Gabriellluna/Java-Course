@@ -5,21 +5,30 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Insira dois números para gerar um intervalo e eu calcular a soma dos números pares: ");
-        int n1 = scanner.nextInt();
-        int n2 = scanner.nextInt();
-        int soma = 0;
-        List<Integer> lista = new ArrayList<>();
-        for(int i = n1; i<=n2; i++){
-            if (i % 2 == 0) {
-                lista.add(i);
+        Scanner scan = new Scanner(System.in);
+        boolean go =  true;
+        boolean stop = false;
+        List<String> convidados = new ArrayList<>();
+        while(go){
+            stop = false;
+            System.out.println("Digite o nome do convidado (ou 'ver' para visualizar a lista, 'sair' para terminar): ");
+            String input = scan.nextLine();
+            for(String convidado : convidados){
+                if(convidado.equals(input)){
+                    System.out.printf("O nome %s já foi adicionado na lista de convidados \n", convidado);
+                    stop = true;
+                }
+            }
+            if(input.equals("sair")){
+                go = false;
+            }else if(input.equals("ver")){
+                System.out.println(convidados);
+            }else if(stop){
+                continue;
+            }else {
+                convidados.add(input);
+                System.out.printf("O nome %s foi adicionado à lista de convidados\n", input);
             }
         }
-        for(int i = 0; i < lista.size(); i++){
-            soma = soma + lista.get(i);
-        }
-        System.out.println(lista);
-        System.out.println("Soma dos números no intervalor de " + n1 + " e " + n2 + ": " + soma);
     }
 }
