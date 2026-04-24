@@ -11,35 +11,21 @@ public class Main
 {
 
      public static void main(String[] args) {
-         Pattern pattern = Pattern.compile("[0-9]{2}[/-][0-9]{2}[/-][0-9]{4}");
-         Scanner scan = new Scanner(System.in);
-         System.out.println("Insira o período de antecedência em dias: ");
-         int antecedencia = 0;
-         try{
-             antecedencia = scan.nextInt();
-         }catch (Exception e){
-             System.out.println("Inserção de valor errado " + e.getMessage());
-         }
-         System.out.println("Insira a data de vencimento (dd-mm-aaaa): ");
-         String date = scan.next();
-         Matcher matcher = pattern.matcher(date);
-         System.out.println(antecedencia);
-         if(matcher.matches()){
-             System.out.println("Data de vencimento: " + date + " é válida");
-         }else{
-             System.out.println("Data de vencimento: " + date + " é INválida");
-         }
+         Scanner input = new Scanner(System.in);
 
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-         LocalDate formatedDate = LocalDate.parse(date.replace('/', '-'), formatter);
-
-         System.out.println("Data do lembrete: " + formatedDate.minusDays(antecedencia).format(formatter));
-
-         ZonedDateTime fuso = ZonedDateTime.now(); // esse aqui por enquanto pega o valor de onde estou
-         ZonedDateTime Tokio = fuso.withZoneSameInstant(ZoneId.of("Asia/Tokyo")); // aqui nós passamos de qual país queremos o horário
-         System.out.println("Data em Tokyo: " + Tokio.format(formatter));
-         System.out.println("Horário em Tokyo: " + Tokio.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+         DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+         System.out.println("Insira o horário de entrada (hh:mm): ");
+         LocalTime enterTime = LocalTime.parse(input.nextLine(), format);
+         System.out.println("Insira sua carga horária: ");
+         int hours = input.nextInt();
+         System.out.println("Insira o horário de saída (hh:mm): ");
+         LocalTime exitTime = LocalTime.parse(input.next(), format);
+         System.out.println("Horário de entrada: " + enterTime);
+         System.out.println("Horário de saída previsto: " + enterTime.plusHours(hours).format(format));
+         System.out.println("Horário de saída: " + exitTime);
+         Duration durationReal = Duration.between(enterTime, exitTime); // trabalhou real
+         Duration durationFake = Duration.between(enterTime, enterTime.plusHours(hours)); // trabalhou na lei
+         System.out.println("Saldo de horas: " +durationReal.minus(durationFake).toHours() + ":" +
+         durationReal.minus(durationFake).toMinutesPart());
      }
 }
-
