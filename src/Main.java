@@ -1,47 +1,65 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main
 {
 
      public static void main(String[] args) {
-         //COLEÇÕES - LIST | SET | MAP
-         //LIST - ORDENAÇÃO DOS ELEMENTOS E PERMITE DUPLICIDADE
-         //LIST - Implementações: ArrayList (buscas rápidas) e LinkedList (muitas inserções)
+         //STREAMS API
+         //OPERAÇÕES INTERMEDIÁRIAS
+         //OPERAÇÕES TERMINAIS
 
-         List<String> amigos = new ArrayList<>();
-         amigos.add("Luna");
-         amigos.add("Maia");
-         amigos.add("Luna");
-         System.out.println(amigos);
+         //filter, map (intermediárias) - reduce, collect (terminais)
+         //filter retorna os dados de uma lista, map altera os dados de uma lista, depois dessas operações, damos um collect para gerar uma nova lista
 
-         //SET - SEM PREOCUPAÇÃO COM ORDENAÇÃO E NÃO PERMITE DUPLICIDADE
-         //SET - Implementações: HashSet (+ rápido), LinkedHashSet (mantém ordem de inserção), TreeSet (ordenação e mais lento)
 
-         Set<String> funcionarios = new HashSet<>();
-         funcionarios.add("Lucco");
-         funcionarios.add("Lima");
-         funcionarios.add("Lucas");
-         funcionarios.add("Gustavo");
-         System.out.println(funcionarios);
+         LocalDate date = LocalDate.of(2000,05,24);
+         List<Livro> livros = new ArrayList<>();
 
-         //MAP - CHAVE-VALOR, NÃO PERMITE VALORES DUPLICADOS
-         //MAP - Implementações: HashMap (+ rápido, nn mantém ordem), LinkedHashMap (mantém ordem), TreeMap (ordem pela chave)
-         //Dois tipos de dados na declaração do tipo, justamente por ser CHAVE - VALOR
-         //Verifica a duplicidade pela chave
-         Map<Integer, String> produtos = new HashMap<>();
+         DateTimeFormatter format =  DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-         produtos.put(1, "Cerveja");
-         produtos.put(2, "Uísque");
-         produtos.put(2, "Água de Coco");
-         produtos.put(3, "Bolo de Maçã");
-         produtos.put(4, "Bolo de Maçã");
-         produtos.put(5, "Bolo de Maçã");
-         produtos.put(6, "Bolo de Maçã");
+         Livro l1 = new Livro("Diário de um Banana", "Jeff Kiney", LocalDate.parse("2007-05-20", format), 50);
+         Livro l2 = new Livro("Harry Potter", "Fulano Dital", LocalDate.parse("2010-06-25", format), 40);
+         Livro l3 = new Livro("Bíblia", "Díscipulos", LocalDate.parse("2000-05-19", format), 30);
 
-         System.out.println(produtos);
-         System.out.println(produtos.get(6));
-         System.out.println(produtos.equals(produtos));
+         livros.add(l1);
+         livros.add(l2);
+         livros.add(l3);
 
+
+         System.out.println("Livros:");
+         List<Livro> livrosAntesDe2010 = livros.stream().filter(livro -> livro.data.isBefore(date))
+                 .collect(Collectors.toList());
+
+         for(Livro livro : livros){
+             livro.exibirInfo();
+         }
+         System.out.println("\n-------------------------------------------------------------------\n");
+         System.out.println("Livros publicados antes de " + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+         for(Livro livro : livrosAntesDe2010){
+             livro.exibirInfo();
+         }
+
+         double somaValorLivros = livros.stream()
+                 .mapToDouble(Livro -> Livro.valor)
+                 .reduce(0.0, Double::sum);
+
+         System.out.println("Soma de valores dos livros: "+ somaValorLivros);
+
+         List<Double> valores = List.of(500.0, 1800.0, 9800.5);
+
+         List<Double> valoresComImposto = valores.stream().map(valor -> valor + (valor * 0.5)).
+                 collect(Collectors.toList());
+
+         System.out.println(valores);
+         System.out.println(valoresComImposto);
+
+         double somaDeValores = valores.stream()
+                 .reduce(0.0, Double::sum);
+
+         System.out.println("Soma dos valores: " + somaDeValores);
      }
 }

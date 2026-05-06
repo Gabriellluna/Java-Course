@@ -1,20 +1,22 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Livro {
     String titulo;
-    LocalDate data = LocalDate.now();
-    LocalDate deadline;
+    String  autor;
+    LocalDate data;
+    double valor;
 
-    public Livro(String titulo, LocalDate deadline) {
+    public Livro(String titulo, String autor, LocalDate data, double valor) {
         this.titulo = titulo;
-        this.deadline = deadline;
+        this.autor = autor;
+        this.data = data;
+        this.valor = valor;
     }
 
-    public void calcularMulta(){
-        Period periodo = Period.between(data, deadline);
-        int days = periodo.getDays();
-        System.out.printf("Livro:  %s | Multa por %d dias de atraso: %.2f", this.titulo, days, days * 2.50 );
+    public void exibirInfo(){
+        String date = this.data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.printf("%s - %s. Data de publicação: %s . R$%f\n", this.titulo, this.autor, date, this.valor);
     }
-
 }
