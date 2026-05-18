@@ -8,58 +8,27 @@ public class Main
 {
 
      public static void main(String[] args) {
-         //STREAMS API
-         //OPERAÇÕES INTERMEDIÁRIAS
-         //OPERAÇÕES TERMINAIS
 
-         //filter, map (intermediárias) - reduce, collect (terminais)
-         //filter retorna os dados de uma lista, map altera os dados de uma lista, depois dessas operações, damos um collect para gerar uma nova lista
-
-
-         LocalDate date = LocalDate.of(2000,05,24);
-         List<Livro> livros = new ArrayList<>();
-
-         DateTimeFormatter format =  DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-         Livro l1 = new Livro("Diário de um Banana", "Jeff Kiney", LocalDate.parse("2007-05-20", format), 50);
-         Livro l2 = new Livro("Harry Potter", "Fulano Dital", LocalDate.parse("2010-06-25", format), 40);
-         Livro l3 = new Livro("Bíblia", "Díscipulos", LocalDate.parse("2000-05-19", format), 30);
-
-         livros.add(l1);
-         livros.add(l2);
-         livros.add(l3);
-
-
-         System.out.println("Livros:");
-         List<Livro> livrosAntesDe2010 = livros.stream().filter(livro -> livro.data.isBefore(date))
-                 .collect(Collectors.toList());
-
-         for(Livro livro : livros){
-             livro.exibirInfo();
-         }
-         System.out.println("\n-------------------------------------------------------------------\n");
-         System.out.println("Livros publicados antes de " + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-         for(Livro livro : livrosAntesDe2010){
-             livro.exibirInfo();
-         }
-
-         double somaValorLivros = livros.stream()
-                 .mapToDouble(Livro -> Livro.valor)
-                 .reduce(0.0, Double::sum);
-
-         System.out.println("Soma de valores dos livros: "+ somaValorLivros);
-
-         List<Double> valores = List.of(500.0, 1800.0, 9800.5);
-
-         List<Double> valoresComImposto = valores.stream().map(valor -> valor + (valor * 0.5)).
-                 collect(Collectors.toList());
-
-         System.out.println(valores);
-         System.out.println(valoresComImposto);
-
-         double somaDeValores = valores.stream()
-                 .reduce(0.0, Double::sum);
-
-         System.out.println("Soma dos valores: " + somaDeValores);
+         List<String> funcionarios = List.of("Ana", "Bruno", "Carlos", "Amanda", "Alice", "Daniel", "Caroline");
+         List<Integer> numeros = List.of(2, 3, 5, 7, 11);
+         List<String> funcionariosComMenosDe5Letras = funcionarios.stream().filter(s -> s.length() <= 5)
+                         .collect(Collectors.toList());
+         List<Integer> quadrados =  numeros.stream().map(valor -> valor * valor).collect(Collectors.toList());
+         List<Double> precosProdutos = List.of(29.99, 49.50, 15.75, 99.99);
+         Double precoTotal = precosProdutos.stream().reduce(0.0, Double::sum);
+         Double precosComImposto =  precoTotal + (precoTotal * 0.08);
+         List<Double> notas = List.of(7.5, 8.0, 6.5, 9.0, 10.0);
+         Double menorNota = notas.stream().min(Double::compareTo).get();
+         Double maiorNota = notas.stream().max(Double::compareTo).get();
+         Double media = notas.stream().reduce(0.0, Double::sum)/notas.size();
+         System.out.println(funcionarios);
+         System.out.println(funcionariosComMenosDe5Letras);
+         System.out.println(numeros);
+         System.out.println(quadrados);
+         System.out.println("Total sem imposto: " + precoTotal);
+         System.out.printf("Total com imposto %.2f: ", precosComImposto);
+         System.out.printf("Menor nota %.2f: ", menorNota);
+         System.out.printf("Maior nota %.2f: ", maiorNota);
+         System.out.printf("Média das notas %.2f: ", media);
      }
 }
