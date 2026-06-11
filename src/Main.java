@@ -1,24 +1,23 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main
 {
 
      public static void main(String[] args) {
 
-        LocalDate now = LocalDate.now();
-        Livro livro1 = new Livro("Diário de um Banana", "Jeff Kiney", now, 15.90);
-        livro1.exibirInfo();
-        livro1.setValor(15.40);
-        livro1.exibirInfo();
+         Gerente gerente = new Gerente("Mario", 15000);
 
-        String date = "10/05/2026";
-        LocalDate data = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+         Funcionario funcionario = new Funcionario("Luiz", 5000);
 
-         System.out.println(data);
+         Desenvolvedor desenvolvedor = new Desenvolvedor("Gabriel", 2500, "JavaScript");
 
+         gerente.exibirInfo();
+         funcionario.exibirInfo();
+         gerente.reajusteSalarial(0.5);
+         funcionario.reajusteSalarial(0.5);
+         gerente.exibirInfo();
+         funcionario.exibirInfo();
+         desenvolvedor.exibirInfo();
      }
 }
