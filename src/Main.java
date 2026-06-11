@@ -6,18 +6,21 @@ public class Main
 
      public static void main(String[] args) {
 
-         Gerente gerente = new Gerente("Mario", 15000);
-
-         Funcionario funcionario = new Funcionario("Luiz", 5000);
-
-         Desenvolvedor desenvolvedor = new Desenvolvedor("Gabriel", 2500, "JavaScript");
-
+         //AGORA VAMOS VER O POLIMORFISMO NA PRÁTICA - OBJETOS DE DIFERENTES CLASSES COMPARTILHEM A MESMA SUPERCLASSE
+         //CASO EU QUEIRA TRANSFORMAR UM FUNCIONARIO EM GERENTE, EU CONSIGO COM CASTING SE EU USAR ESSA FORMA DE CRIAÇÃO
+         //DE OBJETOS, COM UMA SUPERCLASSE SENO
+         Funcionario gerente = new Gerente("Gabriel", 1250);
+         Funcionario funcionario = new Funcionario("Gustavo", 250);
+         Funcionario desenvolvedor = new Desenvolvedor("Mateus", 10000, "Java");
+         //ESTOU INSERINDO NO ESPAÇO DE MEMÓRIA, QUE SÓ ACEITA UM TIPO DE OBJETO DO TIPO FUNCIONÁRIO, UM OBJETO DO TIPO
+         //GERENTE, DESENVOLVEDOR E FUNCIONÁRIO, QUE SÃO SUBCLASSES DE FUNCIONÁRIO
+         //funcionario.setBonus(5000) isso não funciona
+         ((Gerente) gerente).setBonus(5000);
+         System.out.println(((Gerente) gerente).getBonus());
          gerente.exibirInfo();
-         funcionario.exibirInfo();
-         gerente.reajusteSalarial(0.5);
-         funcionario.reajusteSalarial(0.5);
-         gerente.exibirInfo();
-         funcionario.exibirInfo();
          desenvolvedor.exibirInfo();
+         ((Desenvolvedor)desenvolvedor).setStack("HTML kakaka");
+         desenvolvedor.exibirInfo();
+
      }
 }

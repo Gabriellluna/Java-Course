@@ -1,7 +1,7 @@
 public class Funcionario {
     // Herança, possibildiade de classes filhas herdarem atributos de classes pais
     // Funcionário (pai) - Desenvolvedor (Filha) - Gerente (Filha)
-    private String nome;
+    protected String nome; //com protected, eu permito acesso ao atributo às minhas subclasses
     private double salario;
 
     public Funcionario(String nome, double salario) {

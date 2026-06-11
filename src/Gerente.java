@@ -14,7 +14,16 @@ public class Gerente extends Funcionario {
         this.bonus = bonus;
     }
 
-    //assim que eu adiciono "extends Funcionario" a IDE deixa a linha toda em vermelho
-    //Porque definimos um construtor em Funcionario, ou seja, precisamos setar os valores ao instanciar um novo objeto
-    //e como Gerente é um Funcionario, precisamos herdar as mesmas informações
+    //aqui vamos sobrescrever o exibirInfo, altero um método da superclasse
+
+
+    @Override
+    public double getSalario() {
+        return super.getSalario() + bonus;
+    }
+
+    @Override
+    public void exibirInfo() {
+        System.out.printf("Dados do Gerente\nNome: %s - Salário: %.2f - Bônus: %.2f\n", nome, getSalario(), this.bonus);
+    }
 }
